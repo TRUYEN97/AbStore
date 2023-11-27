@@ -36,6 +36,7 @@ public class ManagePc extends AbsDisplayAble {
         this.tableAndLocation.setUrlGet(PropertiesModel.getConfig(Keyword.Url.Pc.GET));
         this.tableAndLocation.setUrlPut(PropertiesModel.getConfig(Keyword.Url.Pc.PUT));
         this.tableAndLocation.setUrlDelete(PropertiesModel.getConfig(Keyword.Url.Pc.DELETE));
+        this.tableAndLocation.addColoumn(List.of("ip", "mac", "os", "name"));
         PopupMenu selectedMenu = this.tableAndLocation.getSelectedMenu();
         selectedMenu.addItemMenu("Delete", (e) -> {
             this.tableAndLocation.deleteSeleled();
