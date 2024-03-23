@@ -4,11 +4,10 @@
  */
 package com.tec02.main;
 
-import com.sun.jna.platform.win32.WinDef.HWND;
 import com.tec02.common.Keyword;
 import com.tec02.common.PropertiesModel;
-import com.tec02.communication.socket.Unicast.Client.Client;
-import com.tec02.user32.User32Util;
+import com.tec02.communication.socket.Unicast.Client.SocketClient;
+import com.tec02.user32.User32;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,24 +15,26 @@ import javax.swing.JOptionPane;
  * @author Administrator
  */
 public class main {
-    
+
     public static void main(String[] args) {
         String title = "AmbitAppStore";
-        if (!new User32Util().findProcess(title).isEmpty()) {
-            Client client = new Client("localhost", 
-                    PropertiesModel.getInteger(Keyword.Socket.PORT, 5000), 
+        if (User32.INSTANCE.FindWindow(0, title) == null) {
+            try {
+                new core(title).run();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, ex.getLocalizedMessage());
+                System.exit(1);
+            }
+        } else {
+            SocketClient client = new SocketClient("127.0.0.1",
+                    PropertiesModel.getInteger(Keyword.Socket.PORT, 5000),
                     null);
-            if(client.connect()){
+            if (client.connect()) {
                 client.send("show");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Program is running!");
             }
-            return;
-        }
-        try {
-            new core(title).run();
-        } catch (Exception ex) {
-            ex.printStackTrace();
         }
     }
 }

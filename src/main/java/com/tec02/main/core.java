@@ -5,8 +5,9 @@
 package com.tec02.main;
 
 import com.tec02.SystemTray.MySystemTray;
-import com.tec02.API.APIController;
 import com.tec02.API.RestAPI;
+import com.tec02.common.APIController;
+import com.tec02.common.PropertiesModel;
 import com.tec02.view.View;
 import java.awt.AWTException;
 import java.net.URL;
@@ -25,6 +26,7 @@ public class core {
     private final URL iconPath;
 
     public core(String title) throws Exception {
+        PropertiesModel.getInstance();
         this.api = APIController.getInstance();
         this.title = title;
         this.iconPath = getClass().getResource("/icon.png");
