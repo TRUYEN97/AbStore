@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 public class main {
 
     public static void main(String[] args) {
-        String title = "AmbitAppStore";
+        String title = "AmbitAppStore - Runing";
         if (User32.INSTANCE.FindWindow(0, title) == null) {
             try {
                 new core(title).run();
